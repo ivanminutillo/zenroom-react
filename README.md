@@ -15,8 +15,10 @@ Following this guide: https://www.dyne.org/using-zenroom-with-javascript-react-p
 
 ### Quick & dirty hack to use .wasm in react
 
-`cd public`
-`ln -s ../node_modules/zenroom/dist/lib/zenroom.wasm .`
+```
+cd public
+ln -s ../node_modules/zenroom/dist/lib/zenroom.wasm .
+```
 
 open the `node_modules/zenroom/dist/lib/zenroom.js` file and change from this
 
