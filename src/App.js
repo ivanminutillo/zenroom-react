@@ -1,63 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import zenroom from 'zenroom'
-// or without ES6 syntax
-// const zenroom = require('zenroom').default
- 
-const encrypt_secret_to_many = {
- script: `keyring = ECDH.new()
-           secret = str(DATA)
-           keys = JSON.decode(KEYS)
-           keyring:private( base64(keys.keyring.secret) )
-           res = {}
-           for name,pubkey in pairs(keys.recipients) do
-             pub = base64(pubkey)
-             enc = ECDH.encrypt(keyring,pub,secret,keyring:public())
-             res[name] = str( MSG.pack( map(enc,base64) ) ):base64()
-           end
-           print(JSON.encode(res))`,
- 
- keys: {
-     keyring : {
-       public : "BHMjcDM/aljpi8pNxFQ436R6F3J+kaB/Xk1kAVFPmkoLVyeFltDZPgiIYRquh+m2IfvPioBfet7YCd5vVXYoRTk=",
-       secret : "ChW5qi5y//ISDIHKx5Fvxl+XY8IyDGVBHUfELp3PqJQ="
-     },
-     recipients : {
-       paulus : "BBUw6Nr3A30cN65maERvAk1cEv2Ji6Vs80kSlpodOC0SCtM8ucaS7e+s158uVMSr3BsvIXVspBeafiL8Qb3kcgc=",
-       mayo : "BHqBoQ2WJ3/FGVNTXzdIc+K/HzNx05bWzEhn8m58FvSsaqWVdH52jI6fQWdkdjnbqVKCJGmbjA/OCJ+IKHbiySI=",
-       mark : "BFgkjrRMvN+wkJ6qA4UvMaNlYBvl37C9cNYGkqOE4w43AUzkEzcyIIdE6BrgOEUEVefhOOnO6SCBQMgXHXJUUPY=",
-       francesca : "BCo102mVybieKMyhex8tnVtFM5+Wo1oP02k8JVwKF9OLIjw7w0LmofItbuAcfWl9rcoe++XLI3sySZnqljIfeyU=",
-       jim : "BEs1jeqL0nVwFi7OmG4YdtlWuKADyOvZR4XHpLAEswg8ONPXQHvwJ8+PkHkphoORfSjk2045bMdYkwboU4FdG2Y=",
-       jaromil : "BBZYJtHvFg0vGCxPROAWrThcGZ+vFZJj86k+uncjvbm4DysIg7cWS3J6GrcJKCY55Uf40m2KfBwfaT+T7TTO1e8="
-     }
- },
- 
- data: 'This is a secret message.'
-}
- 
- 
-zenroom.init(encrypt_secret_to_many).zenroom_exec()
 
 
+// Alice encrypts a message for Bob
+const option = {
+  script: `Rule check version 1.0.0
+  Scenario 'simple': Alice encrypts a message for Bob
+  Given that I am known as 'Alice'
+  and I have my valid 'keypair'
+  and I have a valid 'public key' from 'Bob'
+  When I write 'This is my secret message.' in 'message'
+  and I write 'This is the header' in 'header'
+  and I encrypt the message for 'Bob'
+  Then print the 'secret message'`,
+  keys: {
+    "zenroom":{"curve":"goldilocks","encoding":"url64","version":"1.0.0+53387e8","scenario":"simple"},
+    "Alice":{"keypair":{"private_key":"P-aY-bv0vSC-cW2Er8NJk6WrErF11GotEiEqPj4Xs8qxpCu_YHujUzLD3bpgQDH845cxeWRbNjI","public_key":"BDgebXNQhnQs0lqVS3JWbcvu3GWf8_ri3O0jVxAR-o1_cEP-rBPTu-PqPB6tGMpcX0JRIAHArN8pl2mBGJTO9rz-L4u3ojxzdWZ1BwNRrC5Jb26C4G4LyZEOPn_dpK1_5sbotlqvV6TGvZFmh4CeqnE"}},
+    "Bob": {"public_key":"BGI3AFTtcM8fI55VQxsLJsxa_A3OBpOEIktIly_UBEvZw-klpgl0B9LPwAo5cK8USuY-mDcfeH8AiuQ07F-I4-P5KwBlzHLv0Qf3fMiEHBG7wqIuxaWvvrg102pNh0sD2aX0rPDnvvN3sDCUKcE_aRI"},  
+  }
+} 
 
+
+zenroom.init(option).zencode_exec()
 
 function App() {
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        
       </header>
     </div>
   );
