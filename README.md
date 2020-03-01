@@ -43,4 +43,5 @@ if (!isDataURI(wasmBinaryFile)) {
 `yarn start`
 
 Open the browser console and check the zenroom output
-zencode script is located on app.js
+
+(zencode script is located on app.js)
