@@ -1,10 +1,39 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Right triangle placed top left flush. */
+.tri-right.border.left-top:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: -40px;
+	right: auto;
+  top: -8px;
+	bottom: auto;
+	border: 32px solid;
+	border-color: #666 transparent transparent transparent;
+}
+.tri-right.left-top:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: -10px;
+	right: auto;
+  top: 0px;
+	bottom: auto;
+	border: 12px solid;
+	border-color: #fff transparent transparent transparent;
+}
+.talk-bubble {
+	margin: 40px;
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  border-radius: 4px;
+  margin-top: 8px;
+  margin-left: 16px;
+	height: auto;
+	background-color: #fff;
 }
 
 @media (prefers-reduced-motion: no-preference) {
