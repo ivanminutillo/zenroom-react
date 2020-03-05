@@ -6,6 +6,10 @@ import { Textarea } from '@rebass/forms'
 import styled from 'styled-components'
 
 function App() {
+
+  const sender_name = "San";
+  const receiver_name = "Ashitaka";
+
   const [sender, setKeys] = useState(null);
   const [receiver, setReceiverKeys] = useState(null);
   const [message, setMessage] = useState('');
@@ -36,10 +40,10 @@ function App() {
           scenario: "simple"
         }
       }
-      keys["Alice"] = sender.Alice
-      keys["Bob"] = {public_key: receiver.Bob.keypair.public_key}
+      keys[sender_name] = sender[sender_name]
+      keys[receiver_name] = {public_key: receiver[receiver_name].keypair.public_key}
       const script = `Rule check version 1.0.0
-      Scenario 'simple': Alice encrypts a message for Bob
+      Scenario 'simple': '${sender_name}' encrypts a message for '${receiver_name}'
       Given that I am known as '${Object.keys(sender)[0]}'
       and I have my valid 'keypair'
       and I have a valid 'public key' from '${Object.keys(receiver)[0]}'
@@ -67,11 +71,11 @@ function App() {
           scenario: "simple"
         }
       }
-      keys["Alice"] = {public_key: sender.Alice.keypair.public_key}
-      keys["Bob"] = receiver.Bob
+      keys[sender_name] = {public_key: sender[sender_name].keypair.public_key}
+      keys[receiver_name] = receiver[receiver_name]
       keys["secret_message"] = encrypted.secret_message
       const script = `Rule check version 1.0.0
-        Scenario 'simple': Bob decrypts the message from Alice
+        Scenario 'simple': '${receiver_name}' decrypts the message from '${sender_name}'
         Given that I am known as '${Object.keys(receiver)[0]}'
         and I have my valid 'keypair'
         and I have a valid 'public key' from '${Object.keys(sender)[0]}'
@@ -89,6 +93,7 @@ function App() {
       }
       return zenroom.init(options).zencode_exec()
     })
+
   return (
     <Box mt={4} sx={{width: "610px", margin: "0 auto"}}>
     <Text mb={3} pb={2} sx={{fontWeight: "bold", borderBottom: "4px solid #c66685"}}>
@@ -104,7 +109,7 @@ function App() {
             borderRadius: 9999,
           }}>
           STEP 1
-        </Box>San evokes her keypair </Text>
+        </Box>{sender_name} evokes her keypair </Text>
         <Flex>
     <Box sx={{width: "300px", marginRight: "10px"}}>
       <Flex>
@@ -116,7 +121,7 @@ function App() {
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSg6FoYup0__5MeA5G1tjztNmEV2VqQWC530OgL22dKKwpvt8tZ" />
         <Box>
         <Box ml={3} mt={1}>
-          <Button onClick={() => generateKeypair("Alice").then(res => setKeys(res))} sx={{bg: "rgb(243, 182, 97)"}}>🧙‍♀️Generate 🧙‍♂️</Button>
+          <Button onClick={() => generateKeypair(sender_name).then(res => setKeys(res))} sx={{bg: "rgb(243, 182, 97)"}}>🧙‍♀️Generate 🧙‍♂️</Button>
         </Box>
         </Box>
       </Flex>
@@ -141,7 +146,7 @@ function App() {
             borderRadius: 9999,
           }}>
           STEP 2
-        </Box>Ashitaka evokes his keypair </Text>
+        </Box>{receiver_name} evokes his keypair </Text>
     <Flex>
     <Box sx={{width: "300px", marginRight: "10px"}}>
       <Flex>
@@ -153,7 +158,7 @@ function App() {
         src="https://i.ytimg.com/vi/k4Q_YUXj4bU/maxresdefault.jpg" />
         <Box>
         <Box ml={3} mt={1}>
-          <Button onClick={() => generateKeypair("Bob").then(res => setReceiverKeys(res))} sx={{bg: "rgb(243, 182, 97)"}}>🧙‍♀️Generate 🧙‍♂️</Button>
+          <Button onClick={() => generateKeypair(receiver_name).then(res => setReceiverKeys(res))} sx={{bg: "rgb(243, 182, 97)"}}>🧙‍♀️Generate 🧙‍♂️</Button>
         </Box>
         </Box>
       </Flex>
@@ -178,7 +183,7 @@ function App() {
             borderRadius: 9999,
           }}>
           STEP 3
-        </Box>San encrypts a message for Ashitaka</Text>
+        </Box>{sender_name} encrypts a message for {receiver_name}</Text>
         <Flex>
         <Image sx={{
           width: 48,
@@ -207,7 +212,7 @@ function App() {
             borderRadius: 9999,
           }}>
           STEP 4
-        </Box>Ashitaka decrypts the message</Text>
+        </Box>{receiver_name} decrypts the message</Text>
         <Flex>
         <Image sx={{
           width: 48,
